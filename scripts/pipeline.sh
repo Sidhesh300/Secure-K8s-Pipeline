@@ -37,9 +37,14 @@ echo -e "${GREEN} No High/Critical vulnerabilities found ${NC}"
 echo "Step 4: Deploying to Minikube ($NAMESPACE)"
 kubectl apply -f k8s/deployment.yaml -n "$NAMESPACE"
 
-echo "Step 5: Injecting ${IMAGE_NAME} into deployment"
+echo "Step 5: Injecting ${IMAGE_NAME} and verifying rollout"
 kubectl set image deployment/web-app auth-app-container="$IMAGE_NAME" -n "$NAMESPACE"
-
+if kubectl rollout status deployment/web-app -n "$NAMESPACE" --timeout=60s; then
+    echo -e "${GREEN} Deployment successfull and verified"
+else
+    echo -e "${RED} Deployment failed: Check logs with: kubectl logs -n $NAMESPACE${NC}"
+    exit 1
+fi
 
 echo -e "${GREEN}Deployment Succesfull${NC}"
 echo "Check with: kubectl get pods -n $NAMESPACE"
