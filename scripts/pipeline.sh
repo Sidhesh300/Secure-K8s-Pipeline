@@ -37,6 +37,10 @@ echo -e "${GREEN} No High/Critical vulnerabilities found ${NC}"
 echo "Step 4: Deploying to Minikube ($NAMESPACE)"
 kubectl apply -f k8s/deployment.yaml -n "$NAMESPACE"
 
+echo "Step 5: Injecting ${IMAGE_NAME} into deployment"
+kubectl set image deployment/web-app auth-app-container="$IMAGE_NAME" -n "$NAMESPACE"
+
+
 echo -e "${GREEN}Deployment Succesfull${NC}"
 echo "Check with: kubectl get pods -n $NAMESPACE"
 
