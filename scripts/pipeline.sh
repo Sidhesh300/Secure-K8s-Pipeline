@@ -5,13 +5,13 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-read -p " Enter App Directory [default: ./app]: " INPUT_DIR
-APP_DIR=${INPUT_DIR:-"./app"}
+read -p " Enter App Directory [default:test-app-v2]: " INPUT_DIR
+APP_DIR=${INPUT_DIR:-"test-app-v2"}
 
-read -p "Enter Image Name [default: my-app:local]: " INPUT_IMAGE
+read -p "Enter Image Name [default:my-app:local]: " INPUT_IMAGE
 IMAGE_NAME=${INPUT_IMAGE:-"my-app:local"}
 
-read -p "️ Enter K8s Namespace [default: dev-team-space]: " INPUT_NS
+read -p "️ Enter K8s Namespace [default:dev-team-space]: " INPUT_NS
 NAMESPACE=${INPUT_NS:-"dev-team-space"}
 
 echo -e "${GREEN}Starting pipeline with config: ${NC}"
